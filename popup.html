@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Workathon popup</title>
         <link rel="stylesheet" type="text/css" href="popup.css" />
         <script src="jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="popup.js"></script>
         
         <!-- fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Raleway:200' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
     </head>
+    
     <body>
-        <h2 id = "header">Workathon</h2>
-        <h3 id = "now">Now: N/A</h3>
-        <h3 id = "upcoming">Upcoming: N/A</h3>
+        <nav>
+            <h2 class="orange">Work</h2>
+            <h2 class="grey">athon</h2>
+        </nav>
         
-        <div id="main_popup_div">
-            <a href="main.html" target="_blank">
-                <img src="main_popup.png" id="main_page_img"/>
+        <div class="div-popup_action" id="div-block_site">
+            <a href="#" target="_blank">
+                <img src="block_site.png" id="img:block_site"/>
             </a>
-            <p>schedule</p>
+            <a href="#" target="_blank">
+                <h2>block site</h2>
+            </a>
         </div>
         
-        <div id="settings_popup_div">
+        <div class="div-popup_action" id="div-settings">
             <a href="settings.html" target="_blank">
-                <img src="settings_popup.png" id="settings_page_img" />
+                <img src="settings.png" id="img:settings" />
             </a>
-            <p>settings</p>
+            <a href="settings.html" target="_blank">
+                <h2>settings</h2>
+            </a>
         </div>
+        
+<!--        <p>UofT Hacks 2013 H.Javeed, C.Nhieu, G.Wong.</p>-->
     </body>
 </html>
