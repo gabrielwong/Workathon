@@ -1,3 +1,4 @@
+// From http://stackoverflow.com/questions/979975/how-to-get-the-value-from-url-parameter
 var QueryString = function () {
   // This function is anonymous, is executed immediately and 
   // the return value is assigned to QueryString!
@@ -20,3 +21,12 @@ var QueryString = function () {
   } 
     return query_string;
 } ();
+
+function printUrl(){
+  var continueDiv = document.getElementById("continue");
+  continueDiv.innerHTML = "<a href=" + QueryString["path"] + ">Procrastinate!</a>";
+}
+
+printUrl();
+//document.write(QueryString["path"]);
+
