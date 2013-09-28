@@ -25,9 +25,7 @@ function bindFilter(urls){
         chrome.webRequest.onBeforeRequest.removeListener(redirectRequest);
     }
     var filter = new Filter(urls);
-    chrome.webRequest.onBeforeRequest.addListener(  redirectRequest,    
-                                                    filter,
-                                                    ["blocking"]);
+    chrome.webRequest.onBeforeRequest.addListener(redirectRequest, filter, ["blocking"]);
 }
 
 // Updates the redirect with URLs stored in chrome storage using key
