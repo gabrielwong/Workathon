@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $('a').click(function(){
-       chrome.tabs.create({url: $(this).attr('href')});
+        chrome.tabs.create({url: $(this).attr('href')});
+        return;
     });
     
     $("a").mouseenter(function() {
