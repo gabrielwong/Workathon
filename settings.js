@@ -12,6 +12,27 @@ function updateFilter(urls){
     });
 }
 
+function removeBlockedSite(eventObject){
+    var target = eventObject.target;
+    var id = target.id;
+    var index = parseInt(id.substring(id.lastIndexOf("-") + 1));
+
+    // Remove site from blocklist
+    chrome.storage.sync.get("BLACKLIST", function (items) {
+        var blacklist = items["BLACKLIST"];
+        if (blacklist == null){
+            return;
+        }
+        blacklist.splice(index, 1);
+        chrome.storage.sync.set({"BLACKLIST": blacklist}, function () {
+            updateFilter(blacklist);
+        });
+    });
+
+    // Remove the entire list element from the list
+    target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
+}
+
 function updateVisualList(blacklist){
     var nItems = blacklist.length;
     var listElement = $("#lsblack");
@@ -23,10 +44,12 @@ function updateVisualList(blacklist){
 
         removeButtonSpan = document.createElement("span");
         removeButtonSpan.id = "spanBtnRemove-" + i;
+        removeButtonSpan.class = "spanBtnRemove";
         removeButton = document.createElement("img");
         removeButton.src = "add_settings.png";
         removeButton.id = "btnRemove-" + i;
         removeButton.class = "btnRemove";
+        $(removeButton).click(removeBlockedSite);
         removeButtonSpan.appendChild(removeButton);
         listItem.appendChild(removeButtonSpan);
 
