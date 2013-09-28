@@ -6,12 +6,21 @@ function redirectRequest(details){
     return {redirectUrl: getRedirectUrl()};
 }
 
-var filter = {
-    urls : ["http://reddit.com/*"]
+function Filter(urls){
+    this.urls = urls;
+    this.types = ["main_frame"];
 }
 
-chrome.webRequest.onBeforeRequest.addListener(redirectRequest,
-                                              filter,
-                                              ["blocking"]);
+function bindFilter(urls){
+    if (chrome.webRequest.onBeforeRequest.hasListener(redirectRequest)){
+        chrome.webRequest.onBeforeRequest.removeListener(redirectRequest);
+    }
+    var filter = new Filter(urls);
+    chrome.webRequest.onBeforeRequest.addListener(redirectRequest,
+                                                  filter,
+                                                  ["blocking"]);
+}
+
+bindFilter(["http://reddit.com/*"]);
 
 alert("success");
