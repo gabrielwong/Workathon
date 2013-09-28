@@ -1,0 +1,24 @@
+html{
+	background-color:#D5DED9;
+	color:#7A6A53;
+	font-family:'Open Sans', sans-serif;
+	font-weight:normal;
+	font-size:4em;
+	text-align:center;
+}
+
+#wrapper{
+	position:relative;
+}
+
+#continue{
+	font-size:2em;
+	color:#948C75;
+}
+
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url(http://themes.googleusercontent.com/static/fonts/opensans/v6/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
