@@ -19,5 +19,8 @@
                     "webRequest",
                     "webRequestBlocking",
                     "http://*/*",
-                    "https://*/*"]
+                    "https://*/*"],
+
+    "web_accessible_resources": [
+        "redirect.html"]
 }
