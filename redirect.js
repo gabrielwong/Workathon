@@ -16,7 +16,6 @@ function redirectRequest(details){
 
 function Filter(urls){
     this.urls = urls;
-    this.types = ["main_frame"];
 }
 
 // Update the redirect with new urls
@@ -31,8 +30,12 @@ function bindFilter(urls){
 // Updates the redirect with URLs stored in chrome storage using key
 function updateFilter(key){
     chrome.storage.sync.get(key, function(items){
-        bindFilter(items[key]);
+        var urls = items[key];
+        if (urls == null){
+            urls = ["empty"];
+        }
+        bindFilter(urls);
     });
 }
 
-bindFilter(["http://reddit.com/*"]);
+updateFilter("BLACKLIST");

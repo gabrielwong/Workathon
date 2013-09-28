@@ -1,10 +1,10 @@
 html {
-    background-color:#222;
     min-width:280px;
     min-height:300px;
-    color:#DDD;
-    font-family: 'Raleway', sans-serif;
-    text-align:center;
+    background-color:#D5DED9;
+	color:#7A6A53;
+	font-family:'Open Sans', sans-serif;
+	text-align:center;
 }
 
 #blacklist_input {
