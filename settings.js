@@ -1,5 +1,11 @@
 var BLACKLIST = "BLACKLIST";
 
+function parseURLToFilter(url){
+    url.trim();
+    url = url.replace("*://", "");
+    return "*://".concat(url);
+}
+
 function updateFilter(){
     chrome.runtime.getBackgroundPage(function(page) {
         page.updateFilter("BLACKLIST");
@@ -62,6 +68,7 @@ function updateVisualList(blacklist){
 
 function addInputSite(){
     var field = $("#blacklist_input");
+    //var site = parseURLToFilter(field.val());
     var site = field.val();
     field.val('');
     if(!site) {
