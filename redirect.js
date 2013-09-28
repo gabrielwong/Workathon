@@ -23,6 +23,9 @@ function bindFilter(urls){
     if (chrome.webRequest.onBeforeRequest.hasListener(redirectRequest)){
         chrome.webRequest.onBeforeRequest.removeListener(redirectRequest);
     }
+    if (urls == null || urls.length == 0){
+        urls = ["empty"];
+    }
     var filter = new Filter(urls);
     chrome.webRequest.onBeforeRequest.addListener(redirectRequest, filter, ["blocking"]);
 }
@@ -31,9 +34,6 @@ function bindFilter(urls){
 function updateFilter(key){
     chrome.storage.sync.get(key, function(items){
         var urls = items[key];
-        if (urls == null){
-            urls = ["empty"];
-        }
         bindFilter(urls);
     });
 }
