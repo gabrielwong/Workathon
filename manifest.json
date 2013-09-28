@@ -9,5 +9,11 @@
         "default_popup": "popup.html",
         "default_title": "Open popup for Workathon",
         "default_icon": "icon.png"
-    }
+    },
+    
+    "background": {
+        "scripts": ["redirect.js"]
+    },
+    
+    "permissions": ["webRequest"]
 }
