@@ -14,8 +14,7 @@ function updateFilter(urls){
 
 function removeBlockedSite(eventObject){
     var target = eventObject.target;
-    var id = target.id;
-    var index = parseInt(id.substring(id.lastIndexOf("-") + 1));
+    var index = $(target).index();
 
     // Remove site from blocklist
     chrome.storage.sync.get("BLACKLIST", function (items) {
@@ -43,13 +42,12 @@ function updateVisualList(blacklist){
         var listItem = document.createElement("li");
 
         removeButtonSpan = document.createElement("span");
-        removeButtonSpan.id = "spanBtnRemove-" + i;
         removeButtonSpan.class = "spanBtnRemove";
         removeButton = document.createElement("img");
         removeButton.src = "add_settings.png";
-        removeButton.id = "btnRemove-" + i;
         removeButton.class = "btnRemove";
-        $(removeButton).click(removeBlockedSite);
+        //$(removeButton).click(removeBlockedSite);
+        $(removeButton).on("click", removeBlockedSite);
         removeButtonSpan.appendChild(removeButton);
         listItem.appendChild(removeButtonSpan);
 
