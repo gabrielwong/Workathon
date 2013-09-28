@@ -1,7 +1,6 @@
 $(document).ready(function () {
     $("#add_settings_img").click(function () {
         var site = $("#blacklist_input").val();
-        console.log(site);
         if(!site) {
             alert("Error: No value specified.");
             return;
@@ -17,5 +16,6 @@ $(document).ready(function () {
                 alert("Saved");
             });
         });
+        console.log(blacklist);
     });
 });
