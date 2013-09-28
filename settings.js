@@ -8,14 +8,14 @@ $(document).ready(function () {
         
         chrome.storage.sync.get("blacklist", function (items) {
             var blacklist = items["blacklist"];
-            if (blacklist === null){
+            if (blacklist == null){
                 blacklist = [];
             }
             blacklist.push(site);
+            console.log(site);
             chrome.storage.sync.set({"blacklist": blacklist}, function () {
                 alert("Saved");
             });
         });
-        console.log(blacklist);
     });
 });
