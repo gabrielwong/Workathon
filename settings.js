@@ -60,33 +60,45 @@ function updateVisualList(blacklist){
     }
 }
 
-$(document).ready(function () {
-    $("#add_settings_img").click(function () {
-        var site = $("#blacklist_input").val();
-        if(!site) {
-            alert("Error: No value specified.");
-            return;
+function addInputSite(){
+    var field = $("#blacklist_input");
+    var site = field.val();
+    field.val('');
+    if(!site) {
+        return;
+    }
+    
+    chrome.storage.sync.get("BLACKLIST", function (items) {
+        var blacklist = items["BLACKLIST"];
+        if (blacklist == null){
+            blacklist = [];
         }
-        
-        chrome.storage.sync.get("BLACKLIST", function (items) {
-            var blacklist = items["BLACKLIST"];
-            if (blacklist == null){
-                blacklist = [];
-            }
-            blacklist.push(site);
-            blacklist.sort();
-            chrome.storage.sync.set({"BLACKLIST": blacklist}, function () {
-                updateFilter(blacklist);
-                updateVisualList(blacklist);
-            });
+        blacklist.push(site);
+        blacklist.sort();
+        chrome.storage.sync.set({"BLACKLIST": blacklist}, function () {
+            updateFilter(blacklist);
+            updateVisualList(blacklist);
         });
     });
-    $("#remove_all_img").click(function () {
-        chrome.storage.sync.remove(["BLACKLIST"], function(){
+}
+
+function removeAllBlockedSites(){
+    chrome.storage.sync.remove(["BLACKLIST"], function(){
             updateFilter(["empty"]);
             updateVisualList([]);
         });
+}
+
+$(document).ready(function () {
+    $("#add_settings_img").click(addInputSite);
+
+    // Process field if enter is pressed
+    $("#blacklist_input").keyup(function(event){
+        if(event.keyCode == 13){
+            addInputSite();
+        }
     });
+    $("#remove_all_img").click(removeAllBlockedSites);
 
     chrome.storage.sync.get("BLACKLIST", function (items) {
         var blacklist = items["BLACKLIST"];
