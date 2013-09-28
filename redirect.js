@@ -1,25 +1,17 @@
-var blocker = function () {
+function getRedirectUrl() {
+    return "http://google.ca";
+}
 
-    this.filter = function () {
-        this.urls = ["http://reddit.com/*"];
-        this.types = ["main_frame"];
-    };
-    
-    this.updateFilter = function () {
-        chrome.storage.sync.get("blacklist", function (blacklist) {
-            for (var url in blacklist) {
-                this.urls.filter.push(url);
-            }
-        });
-    };
-    
-    this.getRedirectSite = function () {
-        return chrome.extension.getURL("redirect.html");
-    };
-    
-    this.onBeforeRequest = function (details) {
-        chrome.tabs.update({"url" : this.getRedirectSite()});
-    };
-};
-    
-chrome.webRequest.onBeforeRequest.addListener(blocker.onBeforeRequest, blocker.filter);
+function redirectRequest(details){
+    return {redirectUrl: getRedirectUrl()};
+}
+
+var filter = {
+    urls : ["http://reddit.com/*"]
+}
+
+chrome.webRequest.onBeforeRequest.addListener(redirectRequest,
+                                              filter,
+                                              ["blocking"]);
+
+alert("success");
