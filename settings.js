@@ -1,12 +1,21 @@
-$(document).ready(function(){
-    $("#add_settings_img").click(function(){
-        var website = $(document).getElementById("blacklist_input").value;
-        if(!website) {
-             message('Error: No value specified');
-return;    
+$(document).ready(function () {
+    $("#add_settings_img").click(function () {
+        var site = $("#blacklist_input").val();
+        console.log(site);
+        if(!site) {
+            alert("Error: No value specified.");
+            return;
         }
-        chrome.storage.sync.set({'value': website}, function() {
-        message('Saved.');
-        }
+        
+        chrome.storage.sync.get("blacklist", function (items) {
+            var blacklist = items["blacklist"];
+            if (blacklist === null){
+                blacklist = [];
+            }
+            blacklist.push(site);
+            chrome.storage.sync.set({"blacklist": blacklist}, function () {
+                alert("Saved");
+            });
+        });
     });
 });
