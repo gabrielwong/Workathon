@@ -11,5 +11,5 @@
         "default_icon": "icon.png"
     },
     
-    "permissions": ["tabs"]
+    "permissions": ["tabs","storage"]
 }
