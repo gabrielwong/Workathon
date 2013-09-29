@@ -38,20 +38,27 @@ function removeBlockedSite(eventObject){
     target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
 }
 
+// update list, param is list of sites
 function updateVisualList(blacklist){
+    // the number of elements in the list
     var nItems = blacklist.length;
+    // the unordered list
     var listElement = $("#lsblack");
 
+    // empty the contents of the list
     listElement.empty();
 
+    // for each element in the parameter (list of sites)
     for (var i = 0; i < nItems; i++){
+        // <li>
         var listItem = document.createElement("li");
 
         removeButtonSpan = document.createElement("span");
         removeButtonSpan.class = "spanBtnRemove";
         removeButton = document.createElement("img");
-        removeButton.src = "add_settings.png";
+        removeButton.src = "remove.png";
         removeButton.class = "btnRemove";
+        removeButton.css = {"position": "fixed", "top": "0px"};
         //$(removeButton).click(removeBlockedSite);
         $(removeButton).on("click", removeBlockedSite);
         removeButtonSpan.appendChild(removeButton);
@@ -59,7 +66,7 @@ function updateVisualList(blacklist){
 
         blockedSiteSpan = document.createElement("span");
         blockedSiteSpan.class = "blockSiteSpan"
-        blockedSiteSpan.innerHTML = blacklist[i];
+        blockedSiteSpan.innerHTML = " " + blacklist[i];
         listItem.appendChild(blockedSiteSpan);
 
         listElement.append(listItem);
@@ -70,7 +77,7 @@ function addInputSite(){
     var field = $("#blacklist_input");
     //var site = parseURLToFilter(field.val());
     var site = field.val();
-    field.val('');
+    field.val('http://');
     if(!site) {
         return;
     }

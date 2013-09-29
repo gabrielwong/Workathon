@@ -8,20 +8,20 @@ html {
 .header * {
     position:absolute;
     display:inline;
-    top:20px;
 }
 
 .orange {
     color:#CE4F39;
     font-size:40px;
     left:100px;
+    top:20px;
 }
 
 .blue {
     color:#1B75BB;
-    opacity:0.5;
-    font-size:40px;
-    left:126px;
+    font-size:35px;
+    left:125px;
+    top:31px;
 }
 
 #blacklist_input {
@@ -36,13 +36,13 @@ html {
 #add_settings_img {
     position:absolute;
     top:125px;
-    left:610px;
+    left:615px;
 }
 
 #remove_all_img {
     position:absolute;
-    top:125px;
-    left:650px;
+    top:127px;
+    left:660px;
 }
 
 #lsblack {
@@ -50,8 +50,15 @@ html {
     top:150px;
     left:150px;
     color:#C13D62;
+    list-style-type:none;
     font-family:"Maven Pro";
     font-size:17px;
+}
+
+.spanBtnRemove {
+    position:absolute;
+    top:150px;
+    left:90px;
 }
 
 #selectable .ui-selecting { background: #FECA40; }
