@@ -1,9 +1,9 @@
 var BLACKLIST = "BLACKLIST";
 
 function parseURLToFilter(url){
-    url.trim();
-    url = url.replace("*://", "");
-    return "*://".concat(url);
+    var a = $('<a>', { href:url } )[0];
+
+    return "*://*.".concat(a.hostname, "/*");
 }
 
 function updateFilter(){
@@ -75,8 +75,7 @@ function updateVisualList(blacklist){
 
 function addInputSite(){
     var field = $("#blacklist_input");
-    //var site = parseURLToFilter(field.val());
-    var site = field.val();
+    var site = parseURLToFilter(field.val());
     field.val('http://');
     if(!site) {
         return;
@@ -86,6 +85,9 @@ function addInputSite(){
         var blacklist = items["BLACKLIST"];
         if (blacklist == null){
             blacklist = [];
+        }
+        if ($.inArray(site, blacklist) != -1){
+            return;
         }
         blacklist.push(site);
         blacklist.sort();
