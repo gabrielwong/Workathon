@@ -5,11 +5,13 @@ function parseURLToFilter(url){
         url = "http://".concat(url);
     }
     var a = $('<a>', { href:url } )[0];
+    console.log(a.hostname);
+    url = a.hostname;
     if (url.indexOf("www.") == -1){
-        return "*://*.".concat(a.hostname);
+        return "*://*.".concat(url, "/*");
     }
 
-    return "*://".concat(a.hostname, "/*");
+    return "*://".concat(url, "/*");
 }
 
 function updateFilter(){
