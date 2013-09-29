@@ -2,23 +2,35 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href = "settings.css"/>
-    <script src="jquery-1.10.2.min.js"></script>  
-    <script type = "text/javascript" src = "settings.js"></script>
+    <script src="scripts/jquery-1.10.2.min.js"></script>
+    <script src="jquery-ui-1.10.3/ui/minified/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="scripts/blacklist.js"></script>
+    <script type="text/javascript" src="scripts/settingsTabs.js"></script>
 <!-- fonts -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
 </head>
 <body>
     <div class="header"><p class="orange">R</p><p class="blue">estricted</p></div>
-<div id="add_settings">
-    <input type="text" id="blacklist_input" value="http://" />
+    <div id="tabs">
+        <ul>
+            <li><a href="#blacklist">Blacklist</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+        </ul>
+        <div id="blacklist">
+            <div id="add_settings">
+                <input type="text" id="blacklist_input" value="http://" />
 
-            <img src="add.png" id="add_settings_img" />
-            <img src="remove.png" id="remove_all_img" />
-</div>
-<div id="visual_blacklist">
-	<ul id="lsblack">
-	</ul>
-</div>
+                        <img src="add.png" id="add_settings_img" />
+                        <img src="remove.png" id="remove_all_img" />
+            </div>
+            <div id="visual_blacklist">
+            	<ul id="lsblack">
+            	</ul>
+            </div>
+        </div>
+        <div id="schedule">
+
+        </div>
 </body>
 </html>

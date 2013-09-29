@@ -1,3 +1,0 @@
-$.widget("workathon.weekgrid", {
-	
-});
