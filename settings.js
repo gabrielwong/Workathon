@@ -1,6 +1,9 @@
 var BLACKLIST = "BLACKLIST";
 
 function parseURLToFilter(url){
+    if (url.indexOf("://") == -1){
+        url = "http://".concat(url);
+    }
     var a = $('<a>', { href:url } )[0];
     if (url.indexOf("www.") == -1){
         return "*://*.".concat(a.hostname);
