@@ -1,15 +1,57 @@
 html {
     min-width:280px;
     min-height:300px;
-    background-color:#D5DED9;
-	color:#7A6A53;
+    background-color:#212121;
 	font-family:'Open Sans', sans-serif;
-	text-align:center;
+}
+
+.header * {
+    position:absolute;
+    display:inline;
+    top:20px;
+}
+
+.orange {
+    color:#CE4F39;
+    font-size:40px;
+    left:100px;
+}
+
+.blue {
+    color:#1B75BB;
+    opacity:0.5;
+    font-size:40px;
+    left:126px;
 }
 
 #blacklist_input {
     width:500px;
     height:20px;
+    position:absolute;
+    top:125px;
+    left:90px;
+    font-family:"Open Sans";
+}
+
+#add_settings_img {
+    position:absolute;
+    top:125px;
+    left:610px;
+}
+
+#remove_all_img {
+    position:absolute;
+    top:125px;
+    left:650px;
+}
+
+#lsblack {
+    position:absolute;
+    top:150px;
+    left:150px;
+    color:#C13D62;
+    font-family:"Maven Pro";
+    font-size:17px;
 }
 
 #selectable .ui-selecting { background: #FECA40; }
