@@ -6,6 +6,12 @@ $(document).ready(function () {
     });
 });
 
+function parseURLToFilter(url){
+    var a = $('<a>', { href:url } )[0];
+
+    return "*://*.".concat(a.hostname, "/*");
+}
+
 function addInputSite(url){
     var site = url;
     if(!site) {
@@ -17,7 +23,7 @@ function addInputSite(url){
         if (blacklist == null){
             blacklist = [];
         }
-        blacklist.push(site);
+        blacklist.push(parseURLToFilter(site));
         blacklist.sort();
         chrome.storage.sync.set({"BLACKLIST": blacklist}, function () {
             updateFilter("BLACKLIST");

@@ -2,8 +2,11 @@ var BLACKLIST = "BLACKLIST";
 
 function parseURLToFilter(url){
     var a = $('<a>', { href:url } )[0];
+    if (url.indexOf("www.") == -1){
+        return "*://*.".concat(a.hostname);
+    }
 
-    return "*://*.".concat(a.hostname, "/*");
+    return "*://".concat(a.hostname, "/*");
 }
 
 function updateFilter(){
