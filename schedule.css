@@ -1,0 +1,27 @@
+#selectable .ui-selecting {
+	background: #FECA40;
+}
+ #selectable .ui-selected {
+ 	background: #F39814;
+ 	color: white;
+ }
+ #selectable .ui-unselecting {
+ 	background: #DDDDDD;
+ 	color: black;
+ }
+ #selectable {
+ 	list-style-type: none;
+ 	margin: 0;
+ 	padding: 0;
+ 	width: 600px;
+ }
+ #selectable li {
+ 	margin: -1px;
+ 	padding: 0px;
+ 	float: left;
+ 	width: 80px;
+ 	height: 10px;
+ 	font-size: 1em;
+ 	text-align: center;
+ 	border: 1px solid #555555;
+ }

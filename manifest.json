@@ -6,7 +6,7 @@
     "description": "A Google Chrome extension that helps you focus on what's important in life i think lol",
     
     "background": {
-        "scripts": ["scripts/redirect.js"]
+        "scripts": ["scripts/background.js"]
     },
     
     "browser_action": {

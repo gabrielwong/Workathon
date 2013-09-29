@@ -294,6 +294,23 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 		this.helper.remove();
 
 		return false;
+	},
+
+	selected : function(element){
+		return $(element).hasClass("ui-selected");
+	},
+
+	selected : function(element, selected){
+		var selectee = $.data(this, "selectable-item");
+		if (selected){
+			selectee.$element.addClass("ui-selected");
+			selectee.selected = true;
+			selectee.startselected = true;
+		} else{
+			selectee.$element.removeClass("ui-unselected");
+			selectee.selected = false;
+			selectee.startselected = false;
+		}
 	}
 
 });
