@@ -1,0 +1,67 @@
+html {
+    min-width:280px;
+    min-height:300px;
+    background-color:#212121;
+	font-family:'Open Sans', sans-serif;
+}
+
+.header * {
+    position:absolute;
+    display:inline;
+}
+
+.orange {
+    color:#CE4F39;
+    font-size:40px;
+    left:100px;
+    top:20px;
+}
+
+.blue {
+    color:#1B75BB;
+    font-size:35px;
+    left:125px;
+    top:31px;
+}
+
+#blacklist_input {
+    width:500px;
+    height:20px;
+    position:absolute;
+    top:125px;
+    left:90px;
+    font-family:"Open Sans";
+}
+
+#add_settings_img {
+    position:absolute;
+    top:125px;
+    left:615px;
+}
+
+#remove_all_img {
+    position:absolute;
+    top:127px;
+    left:660px;
+}
+
+#lsblack {
+    position:absolute;
+    top:150px;
+    left:150px;
+    color:#C13D62;
+    list-style-type:none;
+    font-family:"Maven Pro";
+    font-size:17px;
+}
+
+.spanBtnRemove {
+    position:absolute;
+    top:150px;
+    left:90px;
+}
+
+#selectable .ui-selecting { background: #FECA40; }
+#selectable .ui-selected { background: #F39814; color: white; }
+#selectable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+#selectable li { margin: 3px; padding: 0.4em; font-size: 1.4em; height: 18px; }
