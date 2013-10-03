@@ -5,8 +5,8 @@ function setFilterActive(active){
 }
 
 function getRedirectUrl(oldUrl) {
-    //return "http://www.google.ca/#q=" + oldUrl;
-    return chrome.extension.getURL("redirect.html") + "?path=" + oldUrl;
+    //return chrome.extension.getURL("redirect.html") + "?path=" + oldUrl;
+    return chrome.extension.getURL("redirect.html");
 }
 
 function redirectRequest(details){
