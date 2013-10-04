@@ -24,6 +24,8 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 		filter: "*",
 		tolerance: "touch",
 		shouldSelect : "true",
+		shiftKey : "false",
+		lastProcessed : null,
 
 		// callbacks
 		selected: null,
@@ -93,6 +95,8 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 			return;
 		}
 
+		options.shiftKey =  event.shiftKey; // If shift is pressed then use mass selection
+
 		this.selectees = $(options.filter, this.element[0]);
 
 		this._trigger("start", event);
@@ -111,36 +115,51 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 		}
 
 		options.shouldSelect = true;
-		this.selectees.filter(".ui-selected").each(function() {
+		this.selectees.each(function() {
 			var selectee = $.data(this, "selectable-item");
+			var isSelected = selectee.$element.hasClass("ui-selected");
 			if (selectee.top < y && selectee.bottom >= y && selectee.left < x && selectee.right >= x){
-				options.shouldSelect = false;
+				options.shouldSelect = !isSelected;
+				options.lastProcessed = this;
 			}
-			selectee.startselected = true;
+			if (isSelected){
+				selectee.startselected = true;
+			} else{
+				selectee.startselected = false;
+			}
 		});
 
 		$(event.target).parents().addBack().each(function() {
-			var doSelect,
-				selectee = $.data(this, "selectable-item");
+			var selectee = $.data(this, "selectable-item");
 			if (selectee) {
-				doSelect = options.shouldSelect;
-				selectee.$element
-					.removeClass(doSelect ? "ui-unselecting" : "ui-selected")
-					.addClass(doSelect ? "ui-selecting" : "ui-unselecting");
-				selectee.unselecting = !doSelect;
-				selectee.selecting = doSelect;
-				selectee.selected = doSelect;
-				// selectable (UN)SELECTING callback
-				if (doSelect) {
-					that._trigger("selecting", event, {
-						selecting: selectee.element
-					});
-				} else {
-					that._trigger("unselecting", event, {
-						unselecting: selectee.element
-					});
+				if (options.shiftKey){
+					doSelect = options.shouldSelect;
+					selectee.$element
+						.removeClass(doSelect ? "ui-unselecting" : "ui-selected")
+						.addClass(doSelect ? "ui-selecting" : "ui-unselecting");
+					selectee.unselecting = !doSelect;
+					selectee.selecting = doSelect;
+					selectee.selected = doSelect;
+					// selectable (UN)SELECTING callback
+					if (doSelect) {
+						that._trigger("selecting", event, {
+							selecting: selectee.element
+						});
+					} else {
+						that._trigger("unselecting", event, {
+							unselecting: selectee.element
+						});
+					}
+					return false;
+				}else{
+					if (selectee.selected){
+						selectee.$element.removeClass("ui-selected");
+						selectee.selected = false;
+					} else {
+						selectee.$element.addClass("ui-selected");
+						selectee.selected = true;
+					}
 				}
-				return false;
 			}
 		});
 
@@ -162,6 +181,11 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 			x2 = event.pageX,
 			y2 = event.pageY;
 
+		if (!options.shiftKey){
+			this.opos[0] = event.pageX;
+			this.opos[1] = event.pageY;
+		}
+
 		if (x1 > x2) { tmp = x2; x2 = x1; x1 = tmp; }
 		if (y1 > y2) { tmp = y2; y2 = y1; y1 = tmp; }
 		this.helper.css({left: x1, top: y1, width: x2-x1, height: y2-y1});
@@ -181,81 +205,98 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 				hit = (selectee.left > x1 && selectee.right < x2 && selectee.top > y1 && selectee.bottom < y2);
 			}
 
-			if (hit) {
-				if (options.shouldSelect){
-					// SELECT
-					if (selectee.selected) {
-						selectee.$element.removeClass("ui-selected");
-						selectee.selected = false;
-					}
-					if (selectee.unselecting) {
-						selectee.$element.removeClass("ui-unselecting");
-						selectee.unselecting = false;
-					}
-					if (!selectee.selecting) {
-						selectee.$element.addClass("ui-selecting");
-						selectee.selecting = true;
-						// selectable SELECTING callback
-						that._trigger("selecting", event, {
-							selecting: selectee.element
-						});
-					}
-				} else{
-					if (selectee.selected) {
-						selectee.$element.removeClass("ui-selected");
-						selectee.selected = false;
-					}
-					selectee.$element.addClass("ui-unselecting");
-					selectee.unselecting = true;
-				}
-			} else {
-				if (options.shouldSelect){
-					// UNSELECT
-					if (selectee.selecting) {
-						if (selectee.startselected) {
-							selectee.$element.removeClass("ui-selecting");
-							selectee.selecting = false;
-							selectee.$element.addClass("ui-selected");
-							selectee.selected = true;
-						} else {
-							selectee.$element.removeClass("ui-selecting");
-							selectee.selecting = false;
-							if (selectee.startselected) {
-								selectee.$element.addClass("ui-unselecting");
-								selectee.unselecting = true;
-							}
-							// selectable UNSELECTING callback
-							that._trigger("unselecting", event, {
-								unselecting: selectee.element
-							});
-						}
-					}
-					if (selectee.selected) {
-						if (!event.metaKey && !event.ctrlKey && !selectee.startselected) {
+			if (!options.shiftKey){
+				if (hit){
+					if (options.lastProcessed != this){
+						if (selectee.selected){
 							selectee.$element.removeClass("ui-selected");
 							selectee.selected = false;
-
-							selectee.$element.addClass("ui-unselecting");
-							selectee.unselecting = true;
-							// selectable UNSELECTING callback
-							that._trigger("unselecting", event, {
-								unselecting: selectee.element
-							});
-						}
-					}
-				} else {
-					if (selectee.unselecting){
-						selectee.$element.removeClass("ui-unselecting");
-						selectee.unselecting = false;
-
-						if (selectee.startselected){
+						} else {
 							selectee.$element.addClass("ui-selected");
 							selectee.selected = true;
-
+						}
+						if (selectee.left <= x2 && selectee.right > x2 && selectee.top <= y2 && selectee.bottom > y2){
+							options.lastProcessed = this;
+						}
+					}
+				}
+			} else{
+				if (hit) {
+					if (options.shouldSelect){
+						// SELECT
+						if (selectee.selected) {
+							selectee.$element.removeClass("ui-selected");
+							selectee.selected = false;
+						}
+						if (selectee.unselecting) {
+							selectee.$element.removeClass("ui-unselecting");
+							selectee.unselecting = false;
+						}
+						if (!selectee.selecting) {
+							selectee.$element.addClass("ui-selecting");
+							selectee.selecting = true;
 							// selectable SELECTING callback
 							that._trigger("selecting", event, {
 								selecting: selectee.element
 							});
+						}
+					} else{
+						if (selectee.selected) {
+							selectee.$element.removeClass("ui-selected");
+							selectee.selected = false;
+						}
+						selectee.$element.addClass("ui-unselecting");
+						selectee.unselecting = true;
+					}
+				} else {
+					if (options.shouldSelect){
+						// UNSELECT
+						if (selectee.selecting) {
+							if (selectee.startselected) {
+								selectee.$element.removeClass("ui-selecting");
+								selectee.selecting = false;
+								selectee.$element.addClass("ui-selected");
+								selectee.selected = true;
+							} else {
+								selectee.$element.removeClass("ui-selecting");
+								selectee.selecting = false;
+								if (selectee.startselected) {
+									selectee.$element.addClass("ui-unselecting");
+									selectee.unselecting = true;
+								}
+								// selectable UNSELECTING callback
+								that._trigger("unselecting", event, {
+									unselecting: selectee.element
+								});
+							}
+						}
+						if (selectee.selected) {
+							if (!event.metaKey && !event.ctrlKey && !selectee.startselected) {
+								selectee.$element.removeClass("ui-selected");
+								selectee.selected = false;
+
+								selectee.$element.addClass("ui-unselecting");
+								selectee.unselecting = true;
+								// selectable UNSELECTING callback
+								that._trigger("unselecting", event, {
+									unselecting: selectee.element
+								});
+							}
+						}
+					} else {
+						if (selectee.unselecting){
+							selectee.$element.removeClass("ui-unselecting");
+							selectee.unselecting = false;
+
+							if (selectee.startselected){
+								selectee.$element.addClass("ui-selected");
+								selectee.selected = true;
+
+								// selectable SELECTING callback
+								that._trigger("selecting", event, {
+									selecting: selectee.element
+								});
+							}
 						}
 					}
 				}
@@ -274,7 +315,7 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 			var selectee = $.data(this, "selectable-item");
 			selectee.$element.removeClass("ui-unselecting");
 			selectee.unselecting = false;
-			selectee.startselected = false;
+			//selectee.startselected = false;
 			that._trigger("unselected", event, {
 				unselected: selectee.element
 			});
@@ -284,7 +325,7 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 			selectee.$element.removeClass("ui-selecting").addClass("ui-selected");
 			selectee.selecting = false;
 			selectee.selected = true;
-			selectee.startselected = true;
+			//selectee.startselected = true;
 			that._trigger("selected", event, {
 				selected: selectee.element
 			});
