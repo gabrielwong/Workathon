@@ -24,8 +24,7 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 		filter: "*",
 		tolerance: "touch",
 		shouldSelect : "true",
-		shiftKey : "false",
-		lastProcessed : null,
+		shiftKey : false,
 
 		// callbacks
 		selected: null,
@@ -60,7 +59,8 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 					startselected: false,
 					selected: $this.hasClass("ui-selected"),
 					selecting: $this.hasClass("ui-selecting"),
-					unselecting: $this.hasClass("ui-unselecting")
+					unselecting: $this.hasClass("ui-unselecting"),
+					justProcessed: false
 				});
 			});
 		};
@@ -120,7 +120,7 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 			var isSelected = selectee.$element.hasClass("ui-selected");
 			if (selectee.top < y && selectee.bottom >= y && selectee.left < x && selectee.right >= x){
 				options.shouldSelect = !isSelected;
-				options.lastProcessed = this;
+				selectee.justProcessed = true;
 			}
 			if (isSelected){
 				selectee.startselected = true;
@@ -207,7 +207,8 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 
 			if (!options.shiftKey){
 				if (hit){
-					if (options.lastProcessed != this){
+					if (!selectee.justProcessed){
+						selectee.justProcessed = true;
 						if (selectee.selected){
 							selectee.$element.removeClass("ui-selected");
 							selectee.selected = false;
@@ -215,10 +216,9 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 							selectee.$element.addClass("ui-selected");
 							selectee.selected = true;
 						}
-						if (selectee.left <= x2 && selectee.right > x2 && selectee.top <= y2 && selectee.bottom > y2){
-							options.lastProcessed = this;
-						}
 					}
+				} else{
+					selectee.justProcessed = false;
 				}
 			} else{
 				if (hit) {
