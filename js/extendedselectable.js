@@ -114,14 +114,23 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 			this.refresh();
 		}
 
-		options.shouldSelect = true;
+		options.shouldSelect = !event.ctrlKey;
 		this.selectees.each(function() {
 			var selectee = $.data(this, "selectable-item");
-			var isSelected = selectee.$element.hasClass("ui-selected");
-			if (selectee.top < y && selectee.bottom >= y && selectee.left < x && selectee.right >= x){
-				options.shouldSelect = !isSelected;
-				selectee.justProcessed = true;
+
+			if (selectee.left <= x && selectee.right > x && selectee.top <= y && selectee.bottom > y){
+				if (selectee.selected){
+						selectee.$element.removeClass("ui-selected");
+						selectee.selected = false;
+						selectee.$element.addClass("ui-unselecting");
+						selectee.unselecting = true;
+				} else {
+						selectee.$element.addClass("ui-selecting");
+						selectee.selecting = true;
+				}
 			}
+
+			var isSelected = selectee.$element.hasClass("ui-selected");
 			if (isSelected){
 				selectee.startselected = true;
 			} else{
@@ -129,7 +138,7 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 			}
 		});
 
-		$(event.target).parents().addBack().each(function() {
+		/*$(event.target).parents().addBack().each(function() {
 			var selectee = $.data(this, "selectable-item");
 			if (selectee) {
 				if (options.shiftKey){
@@ -161,7 +170,7 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 					}
 				}
 			}
-		});
+		});*/
 
 	},
 
@@ -205,50 +214,35 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 				hit = (selectee.left > x1 && selectee.right < x2 && selectee.top > y1 && selectee.bottom < y2);
 			}
 
-			if (!options.shiftKey){
-				if (hit){
-					if (!selectee.justProcessed){
-						selectee.justProcessed = true;
-						if (selectee.selected){
-							selectee.$element.removeClass("ui-selected");
-							selectee.selected = false;
-						} else {
-							selectee.$element.addClass("ui-selected");
-							selectee.selected = true;
-						}
+			if (hit) {
+				if (options.shouldSelect){
+					// SELECT
+					if (selectee.selected) {
+						selectee.$element.removeClass("ui-selected");
+						selectee.selected = false;
+					}
+					if (selectee.unselecting) {
+						selectee.$element.removeClass("ui-unselecting");
+						selectee.unselecting = false;
+					}
+					if (!selectee.selecting) {
+						selectee.$element.addClass("ui-selecting");
+						selectee.selecting = true;
+						// selectable SELECTING callback
+						that._trigger("selecting", event, {
+							selecting: selectee.element
+						});
 					}
 				} else{
-					selectee.justProcessed = false;
-				}
-			} else{
-				if (hit) {
-					if (options.shouldSelect){
-						// SELECT
-						if (selectee.selected) {
-							selectee.$element.removeClass("ui-selected");
-							selectee.selected = false;
-						}
-						if (selectee.unselecting) {
-							selectee.$element.removeClass("ui-unselecting");
-							selectee.unselecting = false;
-						}
-						if (!selectee.selecting) {
-							selectee.$element.addClass("ui-selecting");
-							selectee.selecting = true;
-							// selectable SELECTING callback
-							that._trigger("selecting", event, {
-								selecting: selectee.element
-							});
-						}
-					} else{
-						if (selectee.selected) {
-							selectee.$element.removeClass("ui-selected");
-							selectee.selected = false;
-						}
-						selectee.$element.addClass("ui-unselecting");
-						selectee.unselecting = true;
+					if (selectee.selected) {
+						selectee.$element.removeClass("ui-selected");
+						selectee.selected = false;
 					}
-				} else {
+					selectee.$element.addClass("ui-unselecting");
+					selectee.unselecting = true;
+				}
+			} else {
+				if (options.shiftKey){
 					if (options.shouldSelect){
 						// UNSELECT
 						if (selectee.selecting) {
