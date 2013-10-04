@@ -1,50 +1,3 @@
-var BLACKLIST = "BLACKLIST";
-
-function parseURLToFilter(url){
-    if (url.indexOf("://") == -1){
-        url = "http://".concat(url);
-    }
-    var a = $('<a>', { href:url } )[0];
-    console.log(a.hostname);
-    url = a.hostname;
-    if (url.indexOf("www.") == -1){
-        return "*://*.".concat(url, "/*");
-    }
-
-    return "*://".concat(url, "/*");
-}
-
-function updateFilter(){
-    chrome.runtime.getBackgroundPage(function(page) {
-        page.updateFilter("BLACKLIST");
-    });
-}
-
-function updateFilter(urls){
-    chrome.runtime.getBackgroundPage(function(page) {
-        page.bindFilter(urls);
-    });
-}
-
-function removeBlockedSite(eventObject){
-    var target = eventObject.target;
-    var index = $(target).index();
-
-    // Remove site from blocklist
-    chrome.storage.sync.get("BLACKLIST", function (items) {
-        var blacklist = items["BLACKLIST"];
-        if (blacklist == null){
-            return;
-        }
-        blacklist.splice(index, 1);
-        chrome.storage.sync.set({"BLACKLIST": blacklist}, function () {
-            updateFilter(blacklist);
-        });
-    });
-
-    // Remove the entire list element from the list
-    target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
-}
 
 // update list, param is list of sites
 function updateVisualList(blacklist){
@@ -52,6 +5,7 @@ function updateVisualList(blacklist){
     var nItems = blacklist.length;
     // the unordered list
     var listElement = $("#lsblack");
+    console.log(listElement);
 
     // empty the contents of the list
     listElement.empty();
@@ -81,45 +35,29 @@ function updateVisualList(blacklist){
     }
 }
 
-function addInputSite(){
+function addSiteFromField(){
     var field = $("#blacklist_input");
-    var site = parseURLToFilter(field.val());
-    field.val('http://');
-    if(!site) {
-        return;
-    }
-    
-    chrome.storage.sync.get("BLACKLIST", function (items) {
-        var blacklist = items["BLACKLIST"];
-        if (blacklist == null){
-            blacklist = [];
-        }
-        if ($.inArray(site, blacklist) != -1){
-            return;
-        }
-        blacklist.push(site);
-        blacklist.sort();
-        chrome.storage.sync.set({"BLACKLIST": blacklist}, function () {
-            updateFilter(blacklist);
-            updateVisualList(blacklist);
-        });
+    var site = field.val();
+    chrome.runtime.getBackgroundPage(function(page){
+        site = page.parseURLToFilter(site);
+        page.addBlockedSite(site, updateVisualList);
     });
 }
 
 function removeAllBlockedSites(){
-    chrome.storage.sync.remove(["BLACKLIST"], function(){
-            updateFilter(["empty"]);
-            updateVisualList([]);
-        });
+    chrome.runtime.getBackgroundPage(function(page){
+        page.removeAllBlockedSites(updateVisualList);
+    });
 }
 
+
 $(document).ready(function () {
-    $("#add_settings_img").click(addInputSite);
+    $("#add_settings_img").click(addSiteFromField);
 
     // Process field if enter is pressed
     $("#blacklist_input").keyup(function(event){
         if(event.keyCode == 13){
-            addInputSite();
+            addSiteFromField();
         }
     });
     $("#remove_all_img").click(removeAllBlockedSites);
@@ -129,6 +67,6 @@ $(document).ready(function () {
         if (blacklist == null){
             blacklist = [];
         }
-        updateVisualList(blacklist);
+        updateVisualList(["hain"]);
     });
 });
