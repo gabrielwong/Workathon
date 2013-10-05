@@ -91,15 +91,21 @@ ul li
 	width:900px;
 }
 
+#about
+{
+	float:left;
+	width:900px;
+}
+
 #schedule
 {
-	float:right;
+	float:left;
 	width:900px;
 }
 
 #days
 {
-	width:900px;
+	width:718px;
 	height:30px;
 	padding-left:182px;
 }
@@ -128,6 +134,7 @@ ul li
 	margin-bottom:30px;
 	font-size:30px;
 	font-weight:bold;
+	width:900px;
 }
 
 #lsblack {
