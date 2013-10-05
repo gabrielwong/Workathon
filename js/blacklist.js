@@ -124,11 +124,11 @@ $(document).ready(function () {
     });
     $("#remove_all_img").click(removeAllBlockedSites);
 
-   /* chrome.storage.sync.get("BLACKLIST", function (items) {
+   chrome.storage.sync.get("BLACKLIST", function (items) {
         var blacklist = items["BLACKLIST"];
         if (blacklist == null){
             blacklist = [];
         }
         updateVisualList(blacklist);
-    });*/
+    });
 });
