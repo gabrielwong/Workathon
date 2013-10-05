@@ -14,22 +14,22 @@ function updateVisualList(blacklist){
         // <li>
         var listItem = document.createElement("li");
 
-        removeButtonSpan = document.createElement("span");
-        removeButtonSpan.class = "spanBtnRemove";
         removeButton = document.createElement("img");
         removeButton.src = "remove.png";
         removeButton.class = "btnRemove";
         removeButton.css = {"position": "fixed", "top": "0px"};
-        $(removeButton).on("click", function(){
+        $(removeButton).on("click", function(eventObject){
+            var target = eventObject.target;
+            var index = $(target).parent().index();
+            //var index = listElement.index(target);
             chrome.runtime.getBackgroundPage(function(page){
-                var index = $(this).index();
+                console.log(index);
                 page.removeBlockedSiteByIndex(index, function(blocklist){
                     updateVisualList(blocklist);
                 });
             });
         });
-        removeButtonSpan.appendChild(removeButton);
-        listItem.appendChild(removeButtonSpan);
+        listItem.appendChild(removeButton);
 
         blockedSiteSpan = document.createElement("span");
         blockedSiteSpan.class = "blockSiteSpan"

@@ -52,12 +52,12 @@ function updateFilterFromStorage(key){
 }
 
 function updateBlacklistInStorage(blacklist){
-    chrome.storage.sync.set({"BLACKLIST": blacklist});
+    chrome.storage.sync.set({BLACKLIST: blacklist});
 }
 
 function addBlockedSite(site, callback){
-    chrome.storage.sync.get("BLACKLIST", function (items) {
-        var blacklist = items["BLACKLIST"];
+    chrome.storage.sync.get(BLACKLIST, function (items) {
+        var blacklist = items[BLACKLIST];
         if (blacklist == null){
             blacklist = [];
         }
@@ -76,8 +76,8 @@ function addBlockedSite(site, callback){
 
 function removeBlockedSite(site, callback){
     // Remove site from blocklist
-    chrome.storage.sync.get("BLACKLIST", function (items) {
-        var blacklist = items["BLACKLIST"];
+    chrome.storage.sync.get(BLACKLIST, function (items) {
+        var blacklist = items[BLACKLIST];
         if (blacklist == null){
             return;
         }
@@ -93,8 +93,8 @@ function removeBlockedSite(site, callback){
 
 function removeBlockedSiteByIndex(index, callback){
     // Remove site from blocklist
-    chrome.storage.sync.get("BLACKLIST", function (items) {
-        var blacklist = items["BLACKLIST"];
+    chrome.storage.sync.get(BLACKLIST, function (items) {
+        var blacklist = items[BLACKLIST];
         if (blacklist == null){
             return;
         }
@@ -115,4 +115,4 @@ function removeAllBlockedSites(callback){
     }
 }
 
-updateFilterFromStorage("BLACKLIST");
+updateFilterFromStorage(BLACKLIST);
