@@ -1,42 +1,54 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="css/settings.css"/>
     <link rel="stylesheet" type="text/css" href="css/schedule.css"/>
     <!--<link rel="stylesheet" type="text/css" href="jquery-ui-1.10.3/themes/base/minified/jquery-ui.min.css"/>-->
-    <script src="js/jquery-1.10.2.min.js"></script>
-    <script src="jquery-ui-1.10.3/ui/minified/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="jquery-ui-1.10.3/ui/minified/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/blacklist.js"></script>
     <script type="text/javascript" src="js/schedule.js"></script>
     <script type="text/javascript" src="js/settingsTabs.js"></script>
     <script type="text/javascript" src="js/extendedselectable.js"></script>
 <!-- fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
+		
+<!-- FONTAWESOME ICONS-->
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+
 </head>
 <body>
-    <div id="tabs">
-        <ul>
-            <li><a href="#blacklist">Blacklist</a></li>
-            <li><a href="#schedule">Schedule</a></li>
-        </ul>
-        <br><br>
-        <div id="blacklist">
-            <div class="header"><p class="orange">R</p><p class="blue">estricted</p></div>
-            <div id="add_settings">
-                <input type="text" id="blacklist_input" />
-
-                        <img src="add.png" id="add_settings_img" />
-                        <img src="remove.png" id="remove_all_img" />
-            </div>
-            <div id="visual_blacklist">
-            	<ul id="lsblack">
-            	</ul>
-            </div>
-        </div>
-        <div id="schedule">
-            <ol id="selectable"> 
-            </ol>
-        </div>
+	<div id="contain">
+		<div class="header">
+			<i class="icon-off" style="height:30px"></i>&nbsp;
+			<strong>Restrictions</strong> <i>for</i> Chrome
+		</div>
+		<div id="tabs">
+			<ul style="list-style-type: none;">
+				<li style="list-style-type: none;"><a href="#blacklist" class="option">Blacklist</a></li>
+				<li style="list-style-type: none;"><a href="#schedule" class="option">Schedule</a></li>
+			</ul>
+			<div class="right">
+				<div id="blacklist">
+					<div class="name">Blacklist</div>
+					<div id="add_settings">
+						<input type="text" id="blacklist_input" value="http://" />
+						<i class="icon-ok" style="cursor:pointer" id="add_settings_img" ></i>&nbsp;
+						<i class="icon-remove" style="cursor:pointer" id="remove_all_img" ></i>
+					</div>
+					<div id="visual_blacklist">
+						<ul id="lsblack">
+						</ul>
+					</div>
+				</div>
+				<div id="schedule">
+					<div class="name">Schedule</div>
+					<ol id="selectable"> 
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

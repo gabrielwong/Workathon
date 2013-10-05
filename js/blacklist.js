@@ -9,7 +9,7 @@ function updateVisualList(blacklist){
 
     // empty the contents of the list
     listElement.empty();
-
+	
     // for each element in the parameter (list of sites)
     for (var i = 0; i < nItems; i++){
         // <li>
@@ -78,7 +78,7 @@ $(document).ready(function () {
     });
     $("#remove_all_img").click(removeAllBlockedSites);
 
-    chrome.storage.sync.get("BLACKLIST", function (items) {
+   chrome.storage.sync.get("BLACKLIST", function (items) {
         var blacklist = items["BLACKLIST"];
         if (blacklist == null){
             blacklist = [];
