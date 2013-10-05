@@ -119,14 +119,14 @@ $.widget("ui.extendedselectable", $.ui.mouse, {
 			var selectee = $.data(this, "selectable-item");
 
 			if (selectee.left <= x && selectee.right > x && selectee.top <= y && selectee.bottom > y){
-				if (selectee.selected){
-						selectee.$element.removeClass("ui-selected");
-						selectee.selected = false;
-						selectee.$element.addClass("ui-unselecting");
-						selectee.unselecting = true;
-				} else {
-						selectee.$element.addClass("ui-selecting");
-						selectee.selecting = true;
+				if (options.shouldSelect){
+					selectee.$element.addClass("ui-selecting");
+					selectee.selecting = true;
+				} else{
+					selectee.$element.removeClass("ui-selected");
+					selectee.selected = false;
+					selectee.$element.addClass("ui-unselecting");
+					selectee.unselecting = true;
 				}
 			}
 
