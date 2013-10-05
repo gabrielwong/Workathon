@@ -20,8 +20,14 @@ function updateVisualList(blacklist){
         removeButton.src = "remove.png";
         removeButton.class = "btnRemove";
         removeButton.css = {"position": "fixed", "top": "0px"};
-        //$(removeButton).click(removeBlockedSite);
-        //$(removeButton).on("click", removeBlockedSite);
+        $(removeButton).on("click", function(){
+            chrome.runtime.getBackgroundPage(function(page){
+                var index = $(this).index();
+                page.removeBlockedSiteByIndex(index, function(blocklist){
+                    updateVisualList(blocklist);
+                });
+            });
+        });
         removeButtonSpan.appendChild(removeButton);
         listItem.appendChild(removeButtonSpan);
 
