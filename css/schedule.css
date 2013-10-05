@@ -13,15 +13,18 @@
  	list-style-type: none;
  	margin: 0;
  	padding: 0;
- 	width: 600px;
+	float:right;
+ 	width: 700px;
+	height:500px;
  }
+ 
  #selectable li {
- 	margin: -1px;
- 	padding: 0px;
+	margin-left:-1px;
+	margin-bottom:-1px;
  	float: left;
- 	width: 80px;
- 	height: 10px;
+ 	width: 90px;
+ 	height: 30px;
  	font-size: 1em;
  	text-align: center;
- 	border: 1px solid #555555;
+ 	border: 1px dotted #555555;
  }

@@ -5,6 +5,8 @@ var HOURS = 24,
 
 function getScheduleSelection(){}
 
+
+
 function onScheduleChange(){}
 
 $(document).ready( function(){
@@ -15,7 +17,9 @@ $(document).ready( function(){
 	for (var i = 0; i < blocks.length; i++){
 		blocks[i] = new Array(WEEK);
 		for (var j = 0; j < blocks[i].length; j++){
+			var newContent = document.createTextNode("Lol");
 			blocks[i][j] = document.createElement("li");
+			// blocks[i][j].appendChild(newContent);
 			fragment.appendChild(blocks[i][j]);
 		}
 	}
