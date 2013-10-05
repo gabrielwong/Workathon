@@ -1,5 +1,6 @@
-
-// update list, param is list of sites
+/**
+* Updates the displayed blacklist in the settings page.
+**/
 function updateVisualList(blacklist){
     // the number of elements in the list
     var nItems = blacklist.length;
@@ -23,7 +24,6 @@ function updateVisualList(blacklist){
             var index = $(target).parent().index();
             //var index = listElement.index(target);
             chrome.runtime.getBackgroundPage(function(page){
-                console.log(index);
                 page.removeBlockedSiteByIndex(index, function(blocklist){
                     updateVisualList(blocklist);
                 });
@@ -40,9 +40,13 @@ function updateVisualList(blacklist){
     }
 }
 
+/**
+* Gets the input from the text field and adds that site to the blacklist.
+**/
 function addSiteFromField(){
     var field = $("#blacklist_input");
     var site = field.val();
+    field.val('');
     chrome.runtime.getBackgroundPage(function(page){
         site = page.parseURLToFilter(site);
         page.addBlockedSite(site, function(blacklist){
@@ -51,6 +55,9 @@ function addSiteFromField(){
     });
 }
 
+/**
+* Removes all blocked sites from the blacklist.
+**/
 function removeAllBlockedSites(){
     chrome.runtime.getBackgroundPage(function(page){
         page.removeAllBlockedSites(function(blacklist){

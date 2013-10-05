@@ -1,15 +1,24 @@
-var filterActive = true;
 var BLACKLIST = "BLACKLIST";
 
-function setFilterActive(active){
-    filterActive = active;
+/**
+* Returns whether the filter is active.
+**/
+function isFilterActive(){
+    return true;
 }
 
+/**
+* Returns the URL to redirect to.
+**/
 function getRedirectUrl(oldUrl) {
     //return chrome.extension.getURL("redirect.html") + "?path=" + oldUrl;
     return chrome.extension.getURL("redirect.html");
 }
 
+
+/**
+* Parses the URL input by the user and returns a format usable for filters.
+**/
 function parseURLToFilter(url){
     if (url.indexOf("://") == -1){
         url = "http://".concat(url);
@@ -23,16 +32,25 @@ function parseURLToFilter(url){
     return "*://".concat(url, "/*");
 }
 
+/**
+* Redirects HTTP requests if the filter is active.
+* Is added to chrome.webRequest.onBeforeRequest listener.
+**/
 function redirectRequest(details){
-    if (filterActive)
+    if (isFilterActive())
         return {redirectUrl: getRedirectUrl(details.url)};
 }
 
+/**
+* Filter object to be used with webRequest.onBeforeRequest listener.
+**/
 function Filter(urls){
     this.urls = urls;
 }
 
-// Update the redirect with new urls
+/**
+* Update the filter with new urls.
+**/
 function updateFilter(urls){
     if (chrome.webRequest.onBeforeRequest.hasListener(redirectRequest)){
         chrome.webRequest.onBeforeRequest.removeListener(redirectRequest);
@@ -43,7 +61,9 @@ function updateFilter(urls){
     }
 }
 
-// Updates the redirect with URLs stored in chrome storage using key
+/**
+* Updates the filter with URLs stored in storage using key.
+**/
 function updateFilterFromStorage(key){
     chrome.storage.sync.get(key, function(items){
         var urls = items[key];
@@ -51,10 +71,17 @@ function updateFilterFromStorage(key){
     });
 }
 
+/**
+* Sets the list of blocked sites in storage to blacklist.
+**/
 function updateBlacklistInStorage(blacklist){
     chrome.storage.sync.set({BLACKLIST: blacklist});
 }
 
+/**
+* Adds site to the blacklist in storage. callback is executed at the end with parameter blacklist
+* containing a list of currently blocked sites. Filters are updated.
+**/
 function addBlockedSite(site, callback){
     chrome.storage.sync.get(BLACKLIST, function (items) {
         var blacklist = items[BLACKLIST];
@@ -74,6 +101,10 @@ function addBlockedSite(site, callback){
     });
 }
 
+/**
+* Removes site from the blacklist in storage. callback is executed at the end with parameter blacklist
+* containing a list of currently blocked sites. Filters are updated.
+**/
 function removeBlockedSite(site, callback){
     // Remove site from blocklist
     chrome.storage.sync.get(BLACKLIST, function (items) {
@@ -91,6 +122,10 @@ function removeBlockedSite(site, callback){
     });
 }
 
+/**
+* Removes the index-th site (0 indexed) from the blacklist in storage. callback is executed at the end with parameter blacklist
+* containing a list of currently blocked sites. Filters are updated.
+**/
 function removeBlockedSiteByIndex(index, callback){
     // Remove site from blocklist
     chrome.storage.sync.get(BLACKLIST, function (items) {
@@ -107,6 +142,10 @@ function removeBlockedSiteByIndex(index, callback){
     });
 }
 
+/**
+* Removes all sites from the blacklist in storage. callback is executed at the end with parameter blacklist
+* containing a list of currently blocked sites (for compatibility). Filters are updated.
+**/
 function removeAllBlockedSites(callback){
     updateBlacklistInStorage([]);
     updateFilter([]);
