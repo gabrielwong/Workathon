@@ -5,7 +5,6 @@ function updateVisualList(blacklist){
     var nItems = blacklist.length;
     // the unordered list
     var listElement = $("#lsblack");
-    console.log(listElement);
 
     // empty the contents of the list
     listElement.empty();
@@ -22,7 +21,7 @@ function updateVisualList(blacklist){
         removeButton.class = "btnRemove";
         removeButton.css = {"position": "fixed", "top": "0px"};
         //$(removeButton).click(removeBlockedSite);
-        $(removeButton).on("click", removeBlockedSite);
+        //$(removeButton).on("click", removeBlockedSite);
         removeButtonSpan.appendChild(removeButton);
         listItem.appendChild(removeButtonSpan);
 
@@ -40,13 +39,17 @@ function addSiteFromField(){
     var site = field.val();
     chrome.runtime.getBackgroundPage(function(page){
         site = page.parseURLToFilter(site);
-        page.addBlockedSite(site, updateVisualList);
+        page.addBlockedSite(site, function(blacklist){
+            updateVisualList(blacklist);
+        });
     });
 }
 
 function removeAllBlockedSites(){
     chrome.runtime.getBackgroundPage(function(page){
-        page.removeAllBlockedSites(updateVisualList);
+        page.removeAllBlockedSites(function(blacklist){
+            updateVisualList(blacklist);
+        });
     });
 }
 
@@ -67,6 +70,6 @@ $(document).ready(function () {
         if (blacklist == null){
             blacklist = [];
         }
-        updateVisualList(["hain"]);
+        updateVisualList(blacklist);
     });
 });

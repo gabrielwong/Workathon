@@ -14,13 +14,12 @@ function parseURLToFilter(url){
     if (url.indexOf("://") == -1){
         url = "http://".concat(url);
     }
-    var a = $('<a>', { href:url } )[0];
-    console.log(a.hostname);
+    var a = document.createElement("a");
+    a.href = url;
     url = a.hostname;
     if (url.indexOf("www.") == -1){
         return "*://*.".concat(url, "/*");
     }
-
     return "*://".concat(url, "/*");
 }
 
@@ -52,12 +51,11 @@ function updateFilterFromStorage(key){
     });
 }
 
-function updateBlocklistInStorage(blocklist){
+function updateBlacklistInStorage(blacklist){
     chrome.storage.sync.set({"BLACKLIST": blacklist});
 }
 
-function addBlockedSite(site, callback){ 
-    console.log('add');
+function addBlockedSite(site, callback){
     chrome.storage.sync.get("BLACKLIST", function (items) {
         var blacklist = items["BLACKLIST"];
         if (blacklist == null){
@@ -68,10 +66,9 @@ function addBlockedSite(site, callback){
         }
         blacklist.push(site);
         blacklist.sort();
-        updateBlocklistInStorage(blocklist);
+        updateBlacklistInStorage(blacklist);
         updateFilter(blacklist);
         if (typeof callback !== "undefined"){
-            console.log("callback");
             callback(blacklist);
         }
     });
@@ -86,7 +83,7 @@ function removeBlockedSite(site, callback){
         }
         var index = blacklist.indexOf(site);
         blacklist.splice(index, 1);
-        updateBlocklistInStorage(blocklist);
+        updateBlacklistInStorage(blacklist);
         updateFilter(blacklist);
         if (typeof callback !== "undefined"){
             callback(blacklist);
@@ -102,7 +99,7 @@ function removeBlockedSiteByIndex(index, callback){
             return;
         }
         blacklist.splice(index, 1);
-        updateBlocklistInStorage(blocklist);
+        updateBlacklistInStorage(blacklist);
         updateFilter(blacklist);
         if (typeof callback !== "undefined"){
             callback(blacklist);
@@ -111,7 +108,7 @@ function removeBlockedSiteByIndex(index, callback){
 }
 
 function removeAllBlockedSites(callback){
-    updateBlocklistInStorage([]);
+    updateBlacklistInStorage([]);
     updateFilter([]);
     if (typeof callback !== "undefined"){
         callback([]);
