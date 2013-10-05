@@ -83,6 +83,8 @@ function updateBlacklistInStorage(blacklist){
 * containing a list of currently blocked sites. Filters are updated.
 **/
 function addBlockedSite(site, callback){
+    if (!site)
+        return;
     chrome.storage.sync.get(BLACKLIST, function (items) {
         var blacklist = items[BLACKLIST];
         if (blacklist == null){
