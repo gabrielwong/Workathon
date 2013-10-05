@@ -107,18 +107,16 @@ ul li
 {
 	width:718px;
 	height:30px;
-	padding-left:182px;
+	padding-left:105px;
 }
 .day
 {
 	float: left;
- 	width: 91px;
+ 	width: 101px;
  	height: 35px;
- 	font-size: 16px;
+ 	font-size: 21px;
  	text-align: center;
 	list-style:none;
-	font-weight:bold;
-	text-decoration:underline;
 }
 
 #schedcontain
@@ -148,6 +146,23 @@ ul li
     position:absolute;
     top:150px;
     left:90px;
+}
+
+#lefthour
+{
+	width:80px;
+	height:auto;
+	float:left;
+	display:inline;
+	text-align:left;
+}
+
+.hour
+{
+	width:80px;
+	height:31px;
+	list-style:none;
+	font-size:18px;
 }
 
 /*!
