@@ -7,4 +7,7 @@ $(document).ready(function () {
             });
         });
     });
+    $("#div-settings").click(function(){
+    	alert("LOL. It won't be that easy!");
+    });
 });
