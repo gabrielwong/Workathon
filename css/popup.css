@@ -1,0 +1,62 @@
+html {
+    background-color:#F4F4F4;
+    width:278px;
+    height:auto;
+	color:#2B2B2B;
+	font-family: 'Open Sans', sans-serif;
+	border-radius:5px;
+}
+
+.button{
+    cursor: pointer;
+}
+
+a:link,visited,active
+{
+	text-decoration:none;
+}
+#contain
+{
+	margin-left:30px;
+	width:190px;
+}
+
+/* main text */
+.div-popup_action * {
+    display:inline;
+    position:relative;
+    opacity:0.75;
+    text-decoration:none;
+	width:150px;
+}
+
+.div-popup_action :hover {
+    opacity:1.0;
+}
+
+#div-block_site h2 {
+    position:relative;
+    left:10px;
+    top:-2px;
+    color:#2B2B2B;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#div-settings h2 {
+    position:relative;
+    left:10px;
+    top:-2px;
+    color:#2B2B2B;
+    font-family: 'Open Sans', sans-serif;
+}
+.left
+{
+	float:left;
+}
+
+/* bottom text */
+    /*p {
+        font-size:0.7em;
+        color:#AAA;
+        float:right;
+    }*/

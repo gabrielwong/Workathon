@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="popup.css" />
-        <script src="jquery-1.10.2.min.js"></script>
-        <script type="text/javascript" src="popup.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/popup.css" />
+        <script src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/popup.js"></script>
         
         <!-- fonts -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Maven+Pro' rel='stylesheet' type='text/css'>
+		
+		<!-- FONT AWESOME -->
+		<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
     </head>
     
     <body>
-        <nav>
-            <h2 class="orange">Work</h2>
-            <h2 class="grey">athon</h2>
-        </nav>
-        
-        <div class="div-popup_action" id="div-block_site">
-            <a id="block">
-                <img src="block_site.png" id="img:block_site"/>
+		<div id="contain">
+			
+			<div class="div-popup_action button" id="div-block_site">
+				<a id="block">
+					<i class="icon-minus-sign icon-2x" id="img:block_site"/></i>
+					<h2>block site</h2>
+				</a>
+			</div>
+			
+			<div class="div-popup_action button" id="div-settings">
+				<i class="icon-remove-sign icon-2x"></i>
+				<h2>unblock site</h2>
+			</div>
+			<hr>
+			<a class="button" target="_blank" href="settings.html">
+                <i class="icon-gears left" id="img:settings"/></i>
             </a>
-            <a>
-                <h2>block site</h2>
+            <div class="left" style="text-align:center;width:155px;top:-50px">Restrictions</div>
+            <a href="settings.html#schedule" class="button" target="_blank">
+            	<i class="icon-calendar"></i>
             </a>
-        </div>
-        
-        <div class="div-popup_action" id="div-settings">
-            <a href="settings.html" target="_blank">
-                <img src="settings.png" id="img:settings" />
-            </a>
-            <a href="settings.html" target="_blank">
-                <h2>settings</h2>
-            </a>
-        </div>
-        
-<!--        <p>UofT Hacks 2013 H.Javeed, C.Nhieu, G.Wong.</p>-->
+		</div>
     </body>
 </html>

@@ -1,0 +1,220 @@
+html {
+    background-color:#F4F4F4;
+	font-family:'Open Sans', sans-serif;
+	color:#2B2B2B;
+}
+
+*
+{
+transition-property: width;
+transition-duration: 1s;
+transition-timing-function: linear;
+transition-delay: 1s;
+/* Safari */
+-webkit-transition-property:width;
+-webkit-transition-duration:0.5s;
+-webkit-transition-timing-function:linear;
+-webkit-transition-delay:1s;
+}
+
+#contain {
+	height:1000px;
+	width:1200px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.header  {
+	font-size:24px;
+	width:100%;
+	clear:both;
+	height:50px;
+}
+
+.option
+{
+	border-bottom:solid #6B6B6B 1px;
+	width:160px;
+	float:left;
+}
+
+a:link,active,visited
+{
+	text-decoration:none;
+	color:#2B2B2B;
+}
+
+.option:hover
+{
+	font-weight:bold;
+	border-bottom:solid black 1px;
+}
+
+#tabs
+{
+	width:100%;
+	float:left;
+	height:950px;
+}
+
+ul
+{
+	float:left;
+	width:200px;
+	height:100%;
+}
+
+ul li
+{
+	width:200px;
+	float:left;
+	cursor:click;
+	margin:10px 30px 10px 5px;
+}
+#right
+{
+	width:800px;
+	float:right;
+	height:auto;
+	border-left:solid blue 2px;
+}
+
+#blacklist_input {
+    width:700px;
+    height:25px;
+    font-family:"Open Sans";
+}
+
+#blacklist
+{
+	float:left;
+	width:900px;
+}
+
+#about
+{
+	float:left;
+	width:900px;
+}
+
+#schedule
+{
+	float:left;
+	width:900px;
+}
+
+#days
+{
+	width:718px;
+	height:30px;
+	padding-left:105px;
+}
+.day
+{
+	float: left;
+ 	width: 101px;
+ 	height: 35px;
+ 	font-size: 21px;
+ 	text-align: center;
+	list-style:none;
+}
+
+#schedcontain
+{
+	width:900px;
+	height:500px;
+	overflow:scroll;
+}
+
+.name
+{
+	border-bottom:solid #ABABAB 1px;
+	margin-bottom:30px;
+	font-size:30px;
+	font-weight:bold;
+	width:900px;
+}
+
+#lsblack {
+    color:#C13D62;
+    list-style-type:none;
+    font-family:"Maven Pro";
+    font-size:17px;
+}
+
+.spanBtnRemove {
+    position:absolute;
+    top:150px;
+    left:90px;
+}
+
+#lefthour
+{
+	width:80px;
+	height:auto;
+	float:left;
+	display:inline;
+	text-align:left;
+}
+
+.hour
+{
+	width:80px;
+	height:31px;
+	list-style:none;
+	font-size:18px;
+}
+
+/*!
+ * jQuery UI Tabs 1.10.3
+ * http://jqueryui.com
+ *
+ * Copyright 2013 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Tabs#theming
+ */
+.ui-tabs {
+    position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+    padding: .2em;
+}
+.ui-tabs .ui-tabs-nav {
+    margin: 0;
+    padding: .2em .2em 0;
+}
+.ui-tabs .ui-tabs-nav li {
+    list-style: none;
+    float: left;
+    position: relative;
+    top: 0;
+    margin: 1px .2em 0 0;
+    border-bottom-width: 0;
+    padding: 0;
+    white-space: nowrap;
+}
+.ui-tabs .ui-tabs-nav li a {
+    float: left;
+    padding: .5em 1em;
+    text-decoration: none;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active {
+    margin-bottom: -1px;
+    padding-bottom: 1px;
+}
+.ui-tabs .ui-tabs-nav li.ui-tabs-active a,
+.ui-tabs .ui-tabs-nav li.ui-state-disabled a,
+.ui-tabs .ui-tabs-nav li.ui-tabs-loading a {
+    cursor: text;
+}
+.ui-tabs .ui-tabs-nav li a, /* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */
+.ui-tabs-collapsible .ui-tabs-nav li.ui-tabs-active a {
+    cursor: pointer;
+}
+.ui-tabs .ui-tabs-panel {
+    display: block;
+    border-width: 0;
+    padding: 1em 1.4em;
+    background: none;
+}
+
