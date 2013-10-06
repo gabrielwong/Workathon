@@ -3,6 +3,7 @@
  * http://jqueryui.com
  *
  * Copyright 2013 jQuery Foundation and other contributors
+ * Extended by Gabriel Wong
  * Released under the MIT license.
  * http://jquery.org/license
  *
