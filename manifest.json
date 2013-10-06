@@ -3,7 +3,7 @@
     
     "name": "Workathon",
     "version": "0.0",
-    "description": "A Google Chrome extension that helps you focus on what's important in life i think lol",
+    "description": "Focus on work by blocking distracting websites.",
     
     "background": {
         "scripts": ["js/background.js"]
